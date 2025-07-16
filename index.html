@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pink Calculator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fce4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .calculator {
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 320px;
+    }
+
+    .display {
+      width: 100%;
+      height: 50px;
+      font-size: 22px;
+      text-align: right;
+      margin-bottom: 15px;
+      padding: 10px;
+      border: 2px solid #888;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    button {
+      padding: 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .number {
+      background-color: #f8bbd0;
+      color: black;
+    }
+
+    .operator, .equal, .clear {
+      background-color: #c2185b;
+      color: white;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .controls button {
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: #666;
+      color: white;
+    }
+
+    .dark-mode {
+      background-color: #222;
+    }
+
+    .dark-mode .calculator {
+      background-color: #333;
+      color: white;
+    }
+
+    .dark-mode .display {
+      background-color: #555;
+      color: white;
+      border: 2px solid #999;
+    }
+
+    .dark-mode .number {
+      background-color: #b39ddb;
+      color: black;
+    }
+
+    .dark-mode .operator, 
+    .dark-mode .equal,
+    .dark-mode .clear {
+      background-color: #6a1b9a;
+    }
+
+    .dark-mode .controls button {
+      background-color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" disabled />
+    <div class="buttons">
+      <button class="number" onclick="append('7')">7</button>
+      <button class="number" onclick="append('8')">8</button>
+      <button class="number" onclick="append('9')">9</button>
+      <button class="operator" onclick="append('/')">÷</button>
+
+      <button class="number" onclick="append('4')">4</button>
+      <button class="number" onclick="append('5')">5</button>
+      <button class="number" onclick="append('6')">6</button>
+      <button class="operator" onclick="append('*')">×</button>
+
+      <button class="number" onclick="append('1')">1</button>
+      <button class="number" onclick="append('2')">2</button>
+      <button class="number" onclick="append('3')">3</button>
+      <button class="operator" onclick="append('-')">−</button>
+
+      <button class="number" onclick="append('0')">0</button>
+      <button class="number" onclick="append('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+      <button class="operator" onclick="append('+')">+</button>
+    </div>
+    <button class="clear" style="width: 100%; margin-top: 15px;" onclick="clearDisplay()">C</button>
+
+    <div class="controls">
+      <button onclick="copyToClipboard()">📋 Copy</button>
+      <button onclick="toggleDarkMode()">🌓 Toggle Mode</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+
+    function append(value) {
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      display.value = "";
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch {
+        display.value = "Error";
+      }
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(display.value);
+      alert("Copied to clipboard!");
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
+</body>
+</html>
